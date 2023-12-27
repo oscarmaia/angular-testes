@@ -9,7 +9,6 @@ export class AlunosService {
     { id: 2, nome: 'Aluno 2', email: 'email2@gmail.com' },
     { id: 3, nome: 'Aluno 3', email: 'email3@gmail.com' },
   ];
-  constructor() {}
 
   getAllAlunos() {
     return this.alunos;

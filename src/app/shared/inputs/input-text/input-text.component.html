@@ -1,0 +1,14 @@
+<label [attr.for]="id">
+  {{ label }}
+  <input
+    class="form-control"
+    type="password"
+    [readonly]="!!isReadOnly"
+    [(ngModel)]="value"
+    [id]="id"
+  />
+</label>
+<br />
+
+<span>{{ value }}</span>
+<br />

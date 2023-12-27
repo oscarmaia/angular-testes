@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { AlunosService } from './alunos.service';
 
 @Component({
@@ -10,8 +10,14 @@ import { AlunosService } from './alunos.service';
 })
 export class AlunosComponent {
   alunos: any[] = [];
-  constructor(private alunosService: AlunosService) {}
+  constructor(
+    private alunosService: AlunosService,
+    private route: ActivatedRoute
+  ) {}
   ngOnInit() {
     this.alunos = this.alunosService.getAllAlunos();
+    this.route.params.subscribe((params) => {
+      console.log(params);
+    });
   }
 }

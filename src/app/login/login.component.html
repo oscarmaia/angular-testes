@@ -1,33 +1,13 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>twitter</td>
-    </tr>
-    <!-- <tr>
-      <th scope="row">4</th>
-      <td colspan="3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic, maiores. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, incidunt!loremfa Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique, natus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus repudiandae consequuntur perspiciatis eligendi hic rerum itaque aliquam cumque sapiente debitis!</td>
-    </tr> -->
-  </tbody>
-</table>
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <label>Username</label>
+  <input class="form-control" formControlName="username" />
+  <label>Password</label>
+  <input class="form-control" formControlName="password" type="password" />
+  <app-input-text
+    label="Input Custom"
+    id="custom"
+    formControlName="custom"
+  ></app-input-text>
+  <button type="submit" class="btn btn-primary mt-2">Submit</button>
+</form>
+<app-debug-form [form]="form"></app-debug-form>

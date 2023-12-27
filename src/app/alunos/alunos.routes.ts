@@ -10,8 +10,16 @@ export const ALUNOS_ROUTES: Routes = [
     children: [
       { path: 'novo', component: AlunoFormComponent },
       { path: ':id', component: AlunoDetalheComponent },
-      { path: ':id/editar', component: AlunoFormComponent },
+      {
+        path: ':id/editar',
+        component: AlunoFormComponent,
+        canDeactivate: [
+          () => {
+            confirm('Quer trocar de rota?');
+          },
+        ],
+      },
     ],
   },
-//   { path: ':id/editar', component: AlunoFormComponent },
+  //   { path: ':id/editar', component: AlunoFormComponent },
 ];

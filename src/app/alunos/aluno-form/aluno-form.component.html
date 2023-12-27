@@ -1,1 +1,7 @@
-<p>aluno-form works!</p>
+<div class="card mt-2" [formGroup]="form">
+  <div class="card-body">
+    <input type="text" class="form-control" formControlName="name" />
+    <input type="text" class="form-control" formControlName="email" />
+  </div>
+  <button class="btn btn-primary" (click)="handleSubmit()">Salvar</button>
+</div>
