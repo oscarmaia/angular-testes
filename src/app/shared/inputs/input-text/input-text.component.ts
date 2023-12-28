@@ -1,14 +1,18 @@
-import { Component,  HostBinding,  Input, forwardRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
+  FormControl,
   FormsModule,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { ErrorMessageComponent } from '../../error-message/error-message.component';
+import { FormValidations } from '../../form-validations';
 
 @Component({
   selector: 'app-input-text',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule, ErrorMessageComponent],
   templateUrl: './input-text.component.html',
   providers: [
     {
@@ -19,13 +23,31 @@ import {
   ],
 })
 export class InputTextComponent implements ControlValueAccessor {
+  @Input() classeCss!: any;
   @Input() type = 'text';
   @Input() id!: string;
   @Input() label!: string;
   @Input() control!: any;
-  @Input() isReadOnly = false;
+  @Input() isDisabled: any;
 
-  @HostBinding('attr.blur')
+  ngOnInit() {}
+
+  get errorMessage() {
+    for (const propertyName in this.control.errors) {
+      if (
+        this.control.errors.hasOwnProperty(propertyName) &&
+        (this.control.touched || this.control.dirty)
+      ) {
+        return FormValidations.getErrorMsg(
+          this.label,
+          propertyName,
+          this.control.errors[propertyName]
+        );
+      }
+    }
+    return null;
+  }
+
   private _value: any;
   get value() {
     return this._value;
@@ -38,7 +60,7 @@ export class InputTextComponent implements ControlValueAccessor {
   }
 
   onChangeCb: (_: any) => void = () => {};
-  onTouchedCb: (_: any) => void = () => {};
+  onTouchedCb: () => void = () => {};
 
   writeValue(v: any): void {
     this.value = v;
@@ -50,42 +72,6 @@ export class InputTextComponent implements ControlValueAccessor {
     this.onTouchedCb = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.isReadOnly = isDisabled;
+    this.isDisabled = isDisabled;
   }
 }
-
-// value: any;
-// onChange = (value: any) => {};
-
-// onTouched = () => {};
-
-// touched = false;
-
-// disabled = false;
-
-// updateValue(event: any) {
-//   this.onChange(event.target.value);
-// }
-// writeValue(value: string) {
-//   this.value = value;
-// }
-
-// registerOnChange(onChange: any) {
-//   this.onChange = onChange;
-// }
-
-// registerOnTouched(onTouched: any) {
-//   this.onTouched = onTouched;
-// }
-
-// markAsTouched() {
-//   console.log('tocado');
-//   if (!this.touched) {
-//     this.onTouched();
-//     this.touched = true;
-//   }
-// }
-
-// setDisabledState(disabled: boolean) {
-//   this.disabled = disabled;
-// }

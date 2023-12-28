@@ -1,11 +1,33 @@
-<form [formGroup]="form" (ngSubmit)="handleSubmit()">
-  <label>Username</label>
-  <input class="form-control" formControlName="username" />
-  <label>Password</label>
-  <input class="form-control" formControlName="password" type="password" />
+<form
+  class="needs-validation"
+  novalidate
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
   <app-input-text
-    label="Input Custom"
-    id="custom"
+    [control]="form.get('username')"
+    id="username"
+    label="Usuário"
+    formControlName="username"
+  ></app-input-text>
+  <app-input-text
+    [control]="form.get('password')"
+    id="password"
+    label="Senha"
+    type="password"
+    formControlName="password"
+  ></app-input-text>
+  <app-input-text
+    [control]="form.get('_password')"
+    id="_password"
+    label="Senha"
+    type="password"
+    formControlName="_password"
+  ></app-input-text>
+  <app-input-text
+    id="email"
+    [control]="form.get('custom')"
+    label="Email"
     formControlName="custom"
   ></app-input-text>
   <button type="submit" class="btn btn-primary mt-2">Submit</button>

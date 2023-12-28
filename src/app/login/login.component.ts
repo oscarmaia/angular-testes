@@ -1,14 +1,11 @@
-import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { AuthService } from './auth.service';
+import { Component } from '@angular/core';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { TesteComponent } from '../teste/teste.component';
 import { InputTextComponent } from '../shared/inputs/input-text/input-text.component';
 import { DebugFormComponent } from '../shared/debug-form/debug-form.component';
+import { BaseFormComponent } from '../shared/base-form/base-form.component';
+import { ErrorMessageComponent } from '../shared/error-message/error-message.component';
+import { FormValidations } from '../shared/form-validations';
 
 @Component({
   selector: 'app-login',
@@ -18,24 +15,34 @@ import { DebugFormComponent } from '../shared/debug-form/debug-form.component';
     TesteComponent,
     InputTextComponent,
     DebugFormComponent,
+    ErrorMessageComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
-  fb = inject(FormBuilder);
-  loginService = inject(AuthService);
-  form: FormGroup = this.fb.nonNullable.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
-    custom: ['', Validators.required],
-  });
-
-  handleSubmit() {
-    const user = this.form.getRawValue();
-    this.loginService.signIn(user);
+export class LoginComponent extends BaseFormComponent {
+  ngOnInit() {
+    this.form = this.fb.nonNullable.group({
+      username: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(35),
+        ],
+      ],
+      password: [
+        null,
+        [Validators.required, FormValidations.equalsTo('_password')],
+      ],
+      _password: [
+        null,
+        [Validators.required, FormValidations.equalsTo('password')],
+      ],
+      custom: [null, [Validators.required, Validators.email]],
+    });
   }
-  handleModal() {
-    console.log('conteúdo salvo :)');
+  override submit(): void {
+    console.log('submito do login forms');
   }
 }

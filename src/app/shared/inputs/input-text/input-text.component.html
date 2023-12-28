@@ -1,14 +1,23 @@
-<label [attr.for]="id">
-  {{ label }}
-  <input
-    class="form-control"
-    type="password"
-    [readonly]="!!isReadOnly"
-    [(ngModel)]="value"
-    [id]="id"
-  />
-</label>
-<br />
-
-<span>{{ value }}</span>
-<br />
+<div class="form-group">
+  <div class="has-validation">
+    <label class="form-label" [attr.for]="id">
+      {{ label }}
+    </label>
+    <input
+      class="form-control"
+      [ngClass]="
+        (control.touched || control.dirty) && control.invalid
+          ? 'is-invalid'
+          : '' || ((control.touched || control.dirty) && control.valid)
+          ? 'is-valid'
+          : ''
+      "
+      [type]="type"
+      [(ngModel)]="value"
+      [id]="id"
+      (blur)="onTouchedCb()"
+    />
+    <div class="invalid-feedback">{{ errorMessage }}</div>
+    <div class="valid-feedback">{{ "tudo certo bb" }}</div>
+  </div>
+</div>
