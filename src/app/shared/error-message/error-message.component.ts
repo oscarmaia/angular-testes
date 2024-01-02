@@ -6,23 +6,17 @@ import { FormControl } from '@angular/forms';
   selector: 'app-error-message',
   standalone: true,
   imports: [],
-  templateUrl: './error-message.component.html',
+  template: `<span class="text-danger">{{ errorMessage }}</span>`,
 })
 export class ErrorMessageComponent {
-  // @Input() msgErro: string;
-  // @Input() mostrarErro: boolean;
-
   @Input() control!: FormControl<any>;
   @Input() label!: string;
-  ngOnInit() {
-    console.log(this.label, 'inicializado');
-  }
 
   get errorMessage() {
     for (const propertyName in this.control.errors) {
       if (
         this.control.errors.hasOwnProperty(propertyName) &&
-        this.control.touched
+        (this.control.touched || this.control.dirty)
       ) {
         return FormValidations.getErrorMsg(
           this.label,

@@ -30,6 +30,7 @@
     label="Email"
     formControlName="custom"
   ></app-input-text>
-  <button type="submit" class="btn btn-primary mt-2">Submit</button>
+  <button [disabled]="form.invalid" type="submit" class="btn btn-primary mt-2">Submit</button>
 </form>
 <app-debug-form [form]="form"></app-debug-form>
+<input type="date" class="form-control"/>

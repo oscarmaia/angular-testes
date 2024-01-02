@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
-  FormControl,
   FormsModule,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
@@ -23,31 +22,13 @@ import { FormValidations } from '../../form-validations';
   ],
 })
 export class InputTextComponent implements ControlValueAccessor {
-  @Input() classeCss!: any;
+  //TODO
+  //Verificar casos de criação sem ID/Label/Type
   @Input() type = 'text';
-  @Input() id!: string;
+  @Input() id?: string;
   @Input() label!: string;
   @Input() control!: any;
-  @Input() isDisabled: any;
-
-  ngOnInit() {}
-
-  get errorMessage() {
-    for (const propertyName in this.control.errors) {
-      if (
-        this.control.errors.hasOwnProperty(propertyName) &&
-        (this.control.touched || this.control.dirty)
-      ) {
-        return FormValidations.getErrorMsg(
-          this.label,
-          propertyName,
-          this.control.errors[propertyName]
-        );
-      }
-    }
-    return null;
-  }
-
+  protected isDisabled: boolean = false;
   private _value: any;
   get value() {
     return this._value;
@@ -58,7 +39,6 @@ export class InputTextComponent implements ControlValueAccessor {
       this.onChangeCb(v);
     }
   }
-
   onChangeCb: (_: any) => void = () => {};
   onTouchedCb: () => void = () => {};
 
@@ -71,7 +51,9 @@ export class InputTextComponent implements ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this.onTouchedCb = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {
+
+  //Tem que setar o disable pelo Formulário (disabled: true)
+  setDisabledState(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
   }
 }

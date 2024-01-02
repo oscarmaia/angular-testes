@@ -30,8 +30,6 @@ export class FormValidations {
   static equalsTo(otherField: string) {
     const validator = (formControl: FormControl) => {
       const otherfield = (<FormGroup>formControl.root).get(otherField);
-      console.log(formControl);
-      console.log(otherfield);
       if (otherField == null) {
         throw new Error('É necessário informar um campo.');
       }
@@ -47,7 +45,7 @@ export class FormValidations {
       }
 
       if (field.value !== formControl.value) {
-        otherfield!.setErrors({ equalsTo: 'outroCampo' });
+        // otherfield!.setErrors({ equalsTo: 'outroCampo' });
         return { equalsTo: otherField };
       }
       if (!field.pristine) {

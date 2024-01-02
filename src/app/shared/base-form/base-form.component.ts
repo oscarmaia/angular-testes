@@ -5,7 +5,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
   selector: 'app-base-form',
   standalone: true,
   imports: [],
-  template: `<div></div>`,
+  template: ``,
 })
 export abstract class BaseFormComponent {
   fb = inject(FormBuilder);

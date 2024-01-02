@@ -1,16 +1,11 @@
-import { Router, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { TesteComponent } from './teste/teste.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { authGuard } from './guards/auth-guard';
-import { inject } from '@angular/core';
 
 export const routes: Routes = [
   { path: '', canActivate: [authGuard], component: HomeComponent },
-  {
-    path: 'teste',
-    component: TesteComponent,
-  },
+
   {
     path: 'login',
     loadComponent: () =>
